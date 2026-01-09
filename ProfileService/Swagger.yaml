@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  title: "ProfileService"
+  version: "1.0.0"
+
+servers:
+  - url: "/api"
+
+components:
+  schemas:
+    Profile:
+      type: object 
+      required: [email, username, password, role]
+      properties:
+        email: { type: string, maxLength: 30 }
+        username: { type: string, maxLength: 30 }
+        aboutme: { type: string, nullable: true }
+        location: { type: string, maxLength: 50, nullable: true }
+        dob: { type: string, format: date, nullable: true }
+        language: { type: string, maxLength: 30, nullable: true }
+        password: { type: string, maxLength: 30 }
+        role: { type: string, enum: [Admin, User], default: User }
+
+  paramaters:
+      email:
+      name: "email"
+      in: path
+      required: true
+      schema:
+        type: string
+
+
+paths:
+  /profiles:
+    get:
+      operationId: "profiles.read_all"
+      tags: [Profiles]
+      summary: "List profiles"
+      responses:
+        "200": { description: "OK" }
+    post:
+      operationId: "profiles.create"
+      tags: [Profiles]
+      summary: "Create profile"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              x-body-name: "profile"
+              $ref: "#/components/schemas/Profile"
+      responses:
+        "201": { description: "Successfully created profile" }
+        "400": { description: "Validation error" }
+        "409": { description: "email already exists" }
+
+  /profiles/{email}:
+    get:
+      operationId: "profiles.read_one"
+      tags: [Profiles]
+      summary: "Get profile by email"
+      parameters:
+        - $ref: "#/components/parameters/email"
+      responses:
+        "200": { description: "Successfully read profile" }
+        "404": { description: "Profile not found" }
+    put:
+      operationId: "profiles.update"
+      tags: [Profiles]
+      summary: "Update a profile"
+      parameters:
+        - $ref: "#/components/parameters/email"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              x-body-name: "profile"
+              $ref: "#/components/schemas/Profile"
+      responses:
+        "200": { description: "Successfully updated profile" }
+        "400": { description: "Validation error" }
+        "404": { description: "Profile not found" }
+    delete:
+      operationId: "profiles.delete"
+      tags: [Profiles]
+      summary: "Delete a profile"
+      parameters:
+        - $ref: "#/components/parameters/email"
+      responses:
+        "200": { description: "Successfully deleted profile" }
+        "404": { description: "Profile not found" }
