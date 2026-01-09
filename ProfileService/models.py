@@ -33,5 +33,15 @@ class FavouriteActivity(db.Model):
 
 
 
+class ProfileSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Profile
+        load_instance = True
+        sqla_session = db.session
+
+profile_schema = ProfileSchema()
+profiles_schema = ProfileSchema(many=True)
+
+
 
 
