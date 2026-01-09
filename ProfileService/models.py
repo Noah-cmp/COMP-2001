@@ -38,7 +38,25 @@ class ProfileSchema(ma.SQLAlchemyAutoSchema):
         model = Profile
         load_instance = True
         sqla_session = db.session
+class ActivitySchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Activity
+        load_instance = True
+        sqla_session = db.session
 
+activity_schema = ActivitySchema()
+activities_schema = ActivitySchema(many=True)
+
+
+class FavouriteActivitySchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = FavouriteActivity
+        load_instance = True
+        sqla_session = db.session
+        include_fk = True
+
+fav_schema = FavouriteActivitySchema()
+favs_schema = FavouriteActivitySchema(many=True)
 profile_schema = ProfileSchema()
 profiles_schema = ProfileSchema(many=True)
 
