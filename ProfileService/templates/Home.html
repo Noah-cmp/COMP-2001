@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ProfileService</title>
+</head>
+<body>
+  <h1>ProfileService Profile</h1>
+  <ul>
+    {% for p in Profile %}
+      <li>{{ p.firstname }} {{ p.lastname }} ({{ p.emailaddress }})</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

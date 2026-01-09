@@ -9,7 +9,7 @@ servers:
 components:
   schemas:
     Profile:
-      type: object 
+      type: object
       required: [email, username, password, role]
       properties:
         email: { type: string, maxLength: 30 }
@@ -21,14 +21,13 @@ components:
         password: { type: string, maxLength: 30 }
         role: { type: string, enum: [Admin, User], default: User }
 
-  paramaters:
-      email:
-      name: "email"
+  parameters:
+    email:
+      name: email
       in: path
       required: true
       schema:
         type: string
-
 
 paths:
   /profiles:
