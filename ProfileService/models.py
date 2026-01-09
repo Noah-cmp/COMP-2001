@@ -16,4 +16,22 @@ class Profile(db.Model):
 
     role = db.Column(db.String(5), nullable=False, default="User")  
 
+class Activity(db.Model):
+    __tablename__ = "Activity"
+    __table_args__ = {"schema": "CW2"}
+
+    activity_id = db.Column(db.Integer, primary_key=True, autoincrement=True)  
+    activity = db.Column(db.String(30), nullable=False, unique=True)
+
+
+class FavouriteActivity(db.Model):
+    __tablename__ = "FavouriteActivity"
+    __table_args__ = {"schema": "CW2"}
+
+    email = db.Column(db.String(30), db.ForeignKey("CW2.Profile.email"), primary_key=True)
+    activity_id = db.Column(db.Integer, db.ForeignKey("CW2.Activity.activity_id"), primary_key=True)
+
+
+
+
 
