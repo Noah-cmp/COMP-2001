@@ -11,9 +11,9 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile \
     && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc 
 
-WORKDIR /app
+WORKDIR /Profileservice
 COPY requirements.txt .
-COPY Swagger.yaml .
+COPY swagger.yaml .
 COPY app.py .
 COPY config.py .
 COPY models.py .
